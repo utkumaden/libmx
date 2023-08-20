@@ -132,7 +132,7 @@ MX_API void mx_options_end_r(mx_options_t *self);
  */
 MX_INLINE mx_options_t* __mx_options_ptr()
 {
-    static mx_options_t opts = { };
+    static mx_options_t opts = { 0 };
     return &opts;
 }
 
@@ -144,6 +144,7 @@ MX_INLINE mx_options_t* __mx_options_ptr()
 */
 MX_INLINE void mx_options_begin(mx_optflag_t flags, int argc, char **argv)
 {
+    mx_options_end_r(__mx_options_ptr());
     mx_options_begin_r(__mx_options_ptr(), flags, argc, argv);
 }
 
