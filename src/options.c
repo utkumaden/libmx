@@ -24,7 +24,7 @@ MX_IMPL void mx_options_begin_r(mx_options_t *self, mx_optflag_t flags, int argc
     MX_ASSERT(argc > 0, "Arguments count must be greater than zero.");
 
     self->flags = flags;
-    self->argc  = argv;
+    self->argv  = argv;
     self->argc  = argc;
     self->i     = 0;
     self->kind  = MX_OPT_END;
