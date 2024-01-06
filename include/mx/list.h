@@ -66,20 +66,21 @@ struct mx_list_self_t {
  * @param list The list.
  * @param index The index to insert the item into.
  * @param item The item to insert.
+ * @param nelem The number of elements to insert.
  * @remarks This overload is for things that can be copied, like structs. Item must be an addressable lvalue.
  */
-#define mx_list_insert_copy(list, index, item) do { \
+#define mx_list_insert_array(list, index, item, nelem) do { \
     int idx = (index); \
     if (list == NULL) { \
         MX_ASSERT(idx == 0, "mx_list_insert() can only insert at 0 for an empty list."); \
-        mx_list_resize(list, 1); \
-        memcpy(&list[0], &item, sizeof(*item)); \
+        mx_list_resize(list, (nelem)); \
+        memcpy(&list[0], &item, (nelem)*sizeof(*item)); \
     } else { \
         int count = mx_list_count(list) \
         MX_ASSERT(idx > 0 && idx <= count, "mx_list_insert() expected a range between 0 and mx_list_count()."); \
-        mx_list_resize(list, count + 1); \
-        memmove(&list[idx]+1, &list[idx], (count - idx) * sizeof(*list)); \
-        memcpy(&list[idx], &item, sizeof(*item)); \
+        mx_list_resize(list, count + (nelem)); \
+        memmove(&list[idx]+(nelem), &list[idx], (count - idx) * sizeof(*list)); \
+        memcpy(&list[idx], &item, (nelem)*sizeof(*item)); \
     } \
 } while(0)
 
