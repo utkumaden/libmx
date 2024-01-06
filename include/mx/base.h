@@ -9,4 +9,6 @@
 #define MX_IMPL
 #define MX_INLINE inline static
 
+typedef int32_t mx_len_t;
+
 #endif
