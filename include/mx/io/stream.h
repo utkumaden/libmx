@@ -4,6 +4,8 @@
 #include "mx/base.h"
 #include "mx/trait.h"
 
+#include <stdarg.h>
+
 typedef enum IStream_SeekOrigin
 {
     ISTREAM_SEEK_START,
@@ -58,6 +60,9 @@ MX_INLINE void IStream_close(fatptr_t(IStream) str)
 {
     fatptr_vcall(str, close);
 }
+
+MX_API void IStream_printf(fatptr_t(IStream) str, const char *format, ...);
+MX_API void IStream_vprintf(fatptr_t(IStream) str, const char *format, va_list va);
 
 typedef enum mx_open_flags
 {

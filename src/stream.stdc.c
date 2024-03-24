@@ -19,24 +19,24 @@ static mx_len_t mx_file_IStream_write(mx_file_t *self, const char *buffer, mx_le
 static void mx_file_IStream_close(mx_file_t *self);
 
 const IObject fat_vtable(mx_file_t, IObject) = {
-    .get_size  = mx_file_IObject_get_size,
+    .get_size  = (void*)mx_file_IObject_get_size,
     .get_type  = NULL,
-    .to_string = mx_file_IObject_to_string,
-    .destruct  = mx_file_IObject_destruct
+    .to_string = (void*)mx_file_IObject_to_string,
+    .destruct  = (void*)mx_file_IObject_destruct
 };
 
 const IStream fat_vtable(mx_file_t, IStream) = {
     .Object = {
-        .get_size  = mx_file_IObject_get_size,
+        .get_size  = (void*)mx_file_IObject_get_size,
         .get_type  = NULL,
-        .to_string = mx_file_IObject_to_string,
-        .destruct  = mx_file_IObject_destruct
+        .to_string = (void*)mx_file_IObject_to_string,
+        .destruct  = (void*)mx_file_IObject_destruct
     },
-    .get_flags = mx_file_IStream_get_flags,
-    .read = mx_file_IStream_read,
-    .seek = mx_file_IStream_seek,
-    .write = mx_file_IStream_write,
-    .close = mx_file_IStream_close,
+    .get_flags = (void*)mx_file_IStream_get_flags,
+    .read = (void*)mx_file_IStream_read,
+    .seek = (void*)mx_file_IStream_seek,
+    .write = (void*)mx_file_IStream_write,
+    .close = (void*)mx_file_IStream_close,
 };
 
 static size_t mx_file_IObject_get_size(mx_file_t *self)
@@ -167,7 +167,7 @@ MX_API fatptr_t(IStream) mx_open(const char *file, mx_open_flags flags)
     mx_file_t *self = malloc(sizeof(mx_file_t));
     if (!self) 
     {
-        return fat_new(NULL, *NULL, IStream);
+        return fat_new(NULL, *(IStream*)NULL, IStream);
     }
 
     self->f = fopen(file, options);
