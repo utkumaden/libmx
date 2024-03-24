@@ -113,7 +113,7 @@
  * @brief Define the fat pointer structure.
  * @param base Base pointer type
  */
-#define fatptr_define(trait) fatptr_t(trait) { void *ptr; trait *traits; }
+#define fatptr_define(trait) fatptr_t(trait) { void *ptr; const trait *traits; }
 
 /**
  * Fat pointer vtable for object #type for traits #trait
